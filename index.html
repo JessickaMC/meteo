@@ -3,107 +3,25 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8" />
-        <!-- <link rel="stylesheet" href="css/style.css" /> -->
-        <style>
-            * {
-                box-sizing: border-box;
-            }
-            .grille{
-                display: grid;
-                /*grid-template-columns: repeat(3, 1fr);*/
-                grid-gap: 0px; /*défini espaces entre les lignes & colonnes*/
-                grid-auto-rows: min-content;
-                height: 358px;
-                width: 250px;
-                border: 5px solid rgb(255, 0, 0);
-                border-radius: 1px;
-            }
-            .grille > div {
-                
-                /*border: 1px solid rgb(255, 255, 255);*/
-                border-radius: 1px;
-                /*border: 5px solid rgb(0, 0, 0);*/
-                background-color: rgb(96,108,244);
-                padding: 1em;
-                color: #fbfbfb;
-            }
-            .title {
-                border-bottom: 1px solid rgb(255, 255, 255);
-                border-radius: 1px;
-                grid-column: 1 / 5;
-                grid-row: 1 / 2;
-                font-size:12px;
-            }
-            .icone {
-                grid-column: 1 / 5;
-                grid-row: 2 / 3;
-                /*border: 1px solid rgb(255, 255, 255);*/
-                height: 100px;
-                text-align: center;
-            }
-            .temp {
-                grid-column: 1 / 5;
-                grid-row: 3 / 4;
-                height: 50px;
-                text-align: center;
-                font-size:30px;
-            }
-            .desc {
-                grid-column: 1 / 5;
-                grid-row: 4 / 5;
-                height: 50px;
-                text-align:center;
-            }
-            .place {
-                grid-column: 1 / 5;
-                grid-row: 5 / 6;
-                height: 50px;
-            }
-            .temp_feels {
-                border-top: 1px solid rgb(255, 255, 255);
-                /*border: 1px solid rgb(0, 0, 0);*/
-                border-radius: 1px;
-                grid-column: 1 / 3;
-                grid-row: 6 / 7;
-                font-size:12px;
-                height: 50px;
-                text-align: center;
-                
-            }
-            .humidity {
-                border-top: 1px solid rgb(255, 255, 255);                
-                border-left: 1px solid rgb(255, 255, 255);
-                /*border: 1px solid rgb(0, 0, 0);*/
-                border-radius: 1px;
-                grid-column: 3 / 5;
-                grid-row: 6 / 7;
-                font-size:12px;
-                height: 50px;
-                text-align: center;
-            }
-            .center {
-                display: block;
-                border: 1px solid rgb(0, 0, 0);
-                margin-left: auto;
-                margin-right: auto;
-                text-align: center;
-                margin-top:-10px;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="meteo.js"></script>
+        <title>Weather App</title>
     </head>
-    <body>
+    <body onload="callAPI()">
+        
         <div class="grille">
             <div class="title">Weather App</div>
             <div class="icone">
-                <img src="D:\Git\projets\meteo\img\sun.png" alt="sun" width="80px" height="80px">
+                <!--<img class="img" src="/img/sun.png" alt="sun" width="80px" height="80px">-->
                 <!--<h1 class="center" >20°C</h1>
                 <h3 class="center">clear sky</h3></div>-->
             </div>
-            <div class="temp">20°C</div>
-            <div class="desc">clear sky</div>
-            <div class="place">Arrondissement de Rennes,FR</div>
-            <div class="temp_feels">21°C Feels like</div>
-            <div class="humidity">50% Humidity</div>
+            <div class="temp">{{ temperature }}°C</div>
+            <div class="desc">{{ description }}</div>
+            <div class="place" id="place">{{ city }}</div>
+            <div class="temp_feels">{{ feelslike }}°C Feels like</div>
+            <div class="humidity">{{ humidity }}% Humidity</div>
         </div>
     </body>
 </html>
