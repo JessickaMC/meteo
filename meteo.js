@@ -1,53 +1,46 @@
 var success = function(data) {
-    console.log("donnees api", data)
-    //alert("Meteo temp  : "  + data.main.temp);
-    //var element = document.getElementById("zone_meteo");
-    //element.innerHTML = "La temperature est de " + data.main.temp;
+    console.log(data)
+
+    document.getElementById("icon").src = data.current.weather_icons;
+
+    var place = document.getElementById("place");
+    place.innerHTML =  data.location.name;
+
+    var desc = document.getElementById("desc");
+    desc.innerHTML =  data.current.weather_descriptions;
+
+    var temp = document.getElementById("temp");
+    temp.innerHTML =  data.current.temperature + "°C";
+
+    var temp_feels = document.getElementById("temp_feels");
+    temp_feels.innerHTML =  data.current.feelslike + "°C Feels like";
+
+    var humidity = document.getElementById("humidity");
+    humidity.innerHTML =  data.current.humidity + "% Humidity";
+
 }
 
-function handler(event)  {
-    var response  = event.response;
-    var headers  = response.headers;
+function getCity(){
 
-    // If Access-Control-Allow-Origin CORS header is missing, add it.
-    // Since JavaScript doesn't allow for hyphens in variable names, we use the dict["key"] notation.
-    if (!headers['access-control-allow-origin']) {
-        headers['access-control-allow-origin'] = {value: "*"};
-        console.log("Access-Control-Allow-Origin was missing, adding it now.");
-    }
+    path = "/config.json";
+    $.getJSON(path, function (dat) {
+        return dat;
+      })
 
-    return response;
 }
 
 function callAPI() {
 
-   
-    const settings = {
-        async: true,
-        crossDomain: true,
-        url: 'https://forecast9.p.rapidapi.com/',
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': 'c2fdb57519mshcec056a2d3b9592p10e9bfjsnfb6230b5d39d',
-            'X-RapidAPI-Host': 'forecast9.p.rapidapi.com'
-        }
-    };
-    
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-    });
+    var city = getCity();
 
-
-   /* var url = "https://example.com/api/current";
+    //var api = "http://api.weatherstack.com/current";
 
     // Paramètres de la requête
-    var params = {
-        access_key: "cc0ec2c6072259e9e860d22017ba42c9",
-        query: "Niort"
-    };
+    var access_key = "cd3636c96d801f29373faa8ed40b8e96";
+    var query = "Niort";
 
     //var url="https://api.openweathermap.org/data/2.5/weather?q=Niort&appid=3b062c74131c1bd300be8490bd7f83c8&units=metric"
-    var url="origin:https://example.com/api/current?access_key=cc0ec2c6072259e9e860d22017ba42c9&query=Niort"
+    var url="http://api.weatherstack.com/current?access_key="+access_key+"&query="+query
 
     $.get(url, success).done(function() {
         //alert( "second success" );
@@ -57,5 +50,5 @@ function callAPI() {
       })
       .always(function() {
         //alert( "finished" );
-      });*/
+      });
 }
