@@ -24,8 +24,10 @@ function getCity(){
     //truc
     //const config = require('./config.json');
     fetch("config.json")
-        .then(res=>console.log(res))
-        .then(data=>console.log(JSON.stringify(data)))
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Erreur lors de la récupération du fichier JSON :', error));
+
 
     /*$.ajax({
         url: 'config.json',
