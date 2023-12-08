@@ -1,3 +1,4 @@
+//variable/fonction permettant l'affichage des données sur le fichier html
 var success = function(data) {
     console.log(data)
 
@@ -20,19 +21,8 @@ var success = function(data) {
 
 }
 
+//fonction permettant la récupération de la ville choisie
 async function getCity(){
-    //truc
-    //const config = require('./config.json');
-    /*fetch("config.json")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      let city = data[0]["ville"];
-      console.log(city)
-    })
-    return city*/
-
     try {
         const response = await fetch("config.json");
         const data = await response.json();
@@ -48,72 +38,53 @@ async function getCity(){
         // Propagez l'erreur pour qu'elle puisse être traitée par le code appelant
         throw error;
       }
-    /*const reponse = await fetch("config.json");
-    const data = await reponse.json();
-    const city = data;
-    //console.log(city);*/
+}
 
-    /*$.ajax({
-        url: 'config.json',
-        dataType: 'json',
-        success: function(data) {
-            console.log(data);
-        },
-        error: function(xhr, status, error) {
-            console.error('Échec du chargement du JSON. Statut :', status, 'Erreur :', error);
-        }
-        });*/
-        /*fetch("config.json")
-        .then(response => {
-            console.log("Response object:", response);
-            return response.json();
-        })
-        .then(data => {
-            console.log("JSON data:", data);
-        })
-        .catch(error => {
-            console.error('Erreur lors de la récupération du fichier JSON :', error);
-        });*/
+//fonction permettant de supprimer les cookies d'une page web
+function deleteAllCookies() {
+  // Récupérer la chaîne de cookies
+  const cookiesString = document.cookie;
+
+  // Séparer les cookies en un tableau de paires nom=valeur
+  const cookiesArray = cookiesString.split('; ');
+
+  // Parcourir les cookies et les supprimer en fixant une date d'expiration passée
+  cookiesArray.forEach(cookie => {
+    const cookieName = cookie.split('=')[0];
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  });
+}
+
+function clearNavigationHistory() {
+  // Remplace l'entrée actuelle dans l'historique par une nouvelle page
+  window.location.replace('index.html');
 }
 
 
+//fonction permettant le rechargement de la page
+function forceReload() {
+  // Modifiez la valeur de la chaîne de requête pour chaque fichier
+  const stylesLink = document.querySelector('link[href="styles.css"]');
+  stylesLink.href = 'styles.css?v=' + new Date().getTime();
 
+  const scriptTag = document.querySelector('script[src="script.js"]');
+  scriptTag.src = 'script.js?v=' + new Date().getTime();
+}
+
+//fonction permettant l'appel de l'api météo
 async function callAPI() {
 
-    //const result = await getCity();
-    var city =  await getCity();
-    //console.log("city:",city);
-    //var api = "http://api.weatherstack.com/current";
+    deleteAllCookies(); //suppression des cookies
+    clearNavigationHistory(); //suppression de l'historique
 
-    // Paramètres de la requête
-    //key1 = cd3636c96d801f29373faa8ed40b8e96
-    //key2 = 89d22bf67acfdd8cdcdd89b81d952385
+    var city =  await getCity(); //récupération de la ville choisie
+
+    //paramètres de la requête
     var access_key = "cd3636c96d801f29373faa8ed40b8e96";
     var query = city;
 
-    //var url="https://api.openweathermap.org/data/2.5/weather?q=Niort&appid=3b062c74131c1bd300be8490bd7f83c8&units=metric"
-    var url="http://api.weatherstack.com/current?access_key="+access_key+"&query="+query;
+    var url="http://api.weatherstack.com/current?access_key="+access_key+"&query="+query; //url de la requête api
     console.log(url)
-    /*const response = await fetch(url);
-    const myJson = await response.json();
-    console.log(myJson);*/
-    /*params = {
-      "access_key": "cd3636c96d801f29373faa8ed40b8e96",
-      "query": "Niort"
-  }
-
-    axios.get('https://api.weatherstack.com/current', {params})
-    .then(response => {
-        if (!response.data.error) {
-            const apiResponse = response.data;
-            console.log(`Current temperature in ${apiResponse.location.name} is ${apiResponse.current.temperature}℃`);
-        } else {
-            console.log(`Response error: code: ${response.data.error.code}, info: ${response.data.error.info}`)
-        }
-    }).catch(error => {
-        console.error("An error occurred: ", error);
-    }
-);*/
     
     $.get(url, success).done(function() {
         //alert( "second success" );
