@@ -75,7 +75,6 @@ function forceReload() {
 async function callAPI() {
 
     deleteAllCookies(); //suppression des cookies
-    clearNavigationHistory(); //suppression de l'historique
 
     var city =  await getCity(); //récupération de la ville choisie
 
