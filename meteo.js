@@ -82,7 +82,7 @@ async function callAPI() {
 
     //const result = await getCity();
     var city =  await getCity();
-    console.log("city:",city);
+    //console.log("city:",city);
     //var api = "http://api.weatherstack.com/current";
 
     // Paramètres de la requête
