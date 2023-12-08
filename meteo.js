@@ -20,10 +20,10 @@ var success = function(data) {
 
 }
 
-function getCity(){
+async function getCity(){
     //truc
     //const config = require('./config.json');
-    fetch("config.json")
+    /*fetch("config.json")
         .then(response => response.json())
         .then(
             data => {   
@@ -31,7 +31,11 @@ function getCity(){
                         city = data.ville // Assigner les données à la variable
                         console.log(city)
                     })
-        .catch(error => console.error('Erreur lors de la récupération du fichier JSON :', error));
+        .catch(error => console.error('Erreur lors de la récupération du fichier JSON :', error));*/
+
+    const reponse = await fetch("config.json");
+    const city = await reponse.json();
+    //console.log(city);
     return city
 
     /*$.ajax({
