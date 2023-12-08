@@ -19,11 +19,35 @@ var success = function(data) {
     humidity.innerHTML =  data.current.humidity + "% Humidity";
 
 }
-import config from "./config.json";
-function getCity(){
 
-    console.log(config);
-    
+function getCity(){
+    //truc
+    //const config = require('./config.json');
+    fetch("config.json")
+        .then(res=>console.log(res))
+        .then(data=>console.log(JSON.stringify(data)))
+
+    /*$.ajax({
+        url: 'config.json',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(xhr, status, error) {
+            console.error('Échec du chargement du JSON. Statut :', status, 'Erreur :', error);
+        }
+        });*/
+        /*fetch("config.json")
+        .then(response => {
+            console.log("Response object:", response);
+            return response.json();
+        })
+        .then(data => {
+            console.log("JSON data:", data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération du fichier JSON :', error);
+        });*/
 }
 
 
