@@ -24,10 +24,15 @@ function getCity(){
     //truc
     //const config = require('./config.json');
     fetch("config.json")
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Erreur lors de la récupération du fichier JSON :', error));
-
+        .then(response => response.json())
+        .then(
+            data => {   
+                        console.log(data)
+                        city = data.ville // Assigner les données à la variable
+                        console.log(city)
+                    })
+        .catch(error => console.error('Erreur lors de la récupération du fichier JSON :', error));
+    return city
 
     /*$.ajax({
         url: 'config.json',
