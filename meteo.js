@@ -24,19 +24,34 @@ async function getCity(){
     //truc
     //const config = require('./config.json');
     /*fetch("config.json")
-        .then(response => response.json())
-        .then(
-            data => {   
-                        console.log(data)
-                        city = data.ville // Assigner les données à la variable
-                        console.log(city)
-                    })
-        .catch(error => console.error('Erreur lors de la récupération du fichier JSON :', error));*/
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let city = data[0]["ville"];
+      console.log(city)
+    })
+    return city*/
 
-    const reponse = await fetch("config.json");
-    const city = await reponse.json();
-    //console.log(city);
-    return city
+    try {
+        const response = await fetch("config.json");
+        const data = await response.json();
+        
+        // Faites quelque chose avec les données
+        city = data[0]["ville"]
+        console.log(city);
+    
+        // Retournez les données si nécessaire
+        return city;
+      } catch (error) {
+        console.error('Une erreur est survenue lors de la récupération des données :', error);
+        // Propagez l'erreur pour qu'elle puisse être traitée par le code appelant
+        throw error;
+      }
+    /*const reponse = await fetch("config.json");
+    const data = await reponse.json();
+    const city = data;
+    //console.log(city);*/
 
     /*$.ajax({
         url: 'config.json',
@@ -63,21 +78,22 @@ async function getCity(){
 
 
 
-function callAPI() {
+async function callAPI() {
 
-    var city = getCity();
-    console.log(city);
+    //const result = await getCity();
+    var city =  await getCity();
+    console.log("city:",city);
     //var api = "http://api.weatherstack.com/current";
 
     // Paramètres de la requête
     //key1 = cd3636c96d801f29373faa8ed40b8e96
     //key2 = 89d22bf67acfdd8cdcdd89b81d952385
     var access_key = "cd3636c96d801f29373faa8ed40b8e96";
-    var query = "Niort";
+    var query = city;
 
     //var url="https://api.openweathermap.org/data/2.5/weather?q=Niort&appid=3b062c74131c1bd300be8490bd7f83c8&units=metric"
     var url="http://api.weatherstack.com/current?access_key="+access_key+"&query="+query;
-
+    console.log(url)
     /*const response = await fetch(url);
     const myJson = await response.json();
     console.log(myJson);*/
