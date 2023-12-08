@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - youtube.com/codingnepal -->
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="style.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+        <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+        <!--<script src="config.json"></script>-->
+        <meta http-equiv="refresh" content="3600">
         <script src="meteo.js"></script>
         <title>Weather App</title>
     </head>
     <body onload="callAPI()">
         
         <div class="grille">
-            <div class="title">Weather App</div>
-            <div class="icone">
-                <!--<img class="img" src="/img/sun.png" alt="sun" width="80px" height="80px">-->
-                <!--<h1 class="center" >20°C</h1>
-                <h3 class="center">clear sky</h3></div>-->
-            </div>
-            <div class="temp">{{ temperature }}°C</div>
-            <div class="desc">{{ description }}</div>
-            <div class="place" id="place">{{ city }}</div>
-            <div class="temp_feels">{{ feelslike }}°C Feels like</div>
-            <div class="humidity">{{ humidity }}% Humidity</div>
+            <div class="title"><a class="back" href="#" onclick="">&#x2190;</a> Weather App</div>
+            <div class="icon" ><img class="img" id="icon" src="" alt="" width="80px" height="80px"></div>
+            <div class="temp" id="temp"></div>
+            <div class="desc" id="desc"></div>
+            <div class="place" id="place"></div>
+            <div class="temp_feels" id="temp_feels"></div>
+            <div class="humidity" id="humidity"></div>
         </div>
     </body>
 </html>
