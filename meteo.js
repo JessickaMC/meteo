@@ -24,52 +24,35 @@ var success = function(data) {
 //fonction permettant la récupération de la ville choisie
 async function getCity(){
     try {
+        //récupération du contenu du fichier config
         const response = await fetch("config.json");
         const data = await response.json();
         
-        // Faites quelque chose avec les données
+        //récupération de la valeur "ville" choisie
         city = data[0]["ville"]
         console.log(city);
-    
-        // Retournez les données si nécessaire
         return city;
+
       } catch (error) {
-        console.error('Une erreur est survenue lors de la récupération des données :', error);
-        // Propagez l'erreur pour qu'elle puisse être traitée par le code appelant
+        alert("Erreur lors de la récupération du nom de la ville - error", error);
+        console.error("Erreur lors de la récupération du nom de la ville - error", error);
         throw error;
       }
 }
 
 //fonction permettant de supprimer les cookies d'une page web
 function deleteAllCookies() {
-  // Récupérer la chaîne de cookies
-  const cookiesString = document.cookie;
+  //récupération des cookies
+  const cookiesString = document.cookie; //format string
+  const cookiesArray = cookiesString.split("; "); //// format tableau de paires nom=valeur
 
-  // Séparer les cookies en un tableau de paires nom=valeur
-  const cookiesArray = cookiesString.split('; ');
-
-  // Parcourir les cookies et les supprimer en fixant une date d'expiration passée
+  //parcourt des cookies et suppression en fixant une date d'expiration passée
   cookiesArray.forEach(cookie => {
-    const cookieName = cookie.split('=')[0];
+    const cookieName = cookie.split("=")[0];
     document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   });
 }
 
-function clearNavigationHistory() {
-  // Remplace l'entrée actuelle dans l'historique par une nouvelle page
-  window.location.replace('index.html');
-}
-
-
-//fonction permettant le rechargement de la page
-function forceReload() {
-  // Modifiez la valeur de la chaîne de requête pour chaque fichier
-  const stylesLink = document.querySelector('link[href="styles.css"]');
-  stylesLink.href = 'styles.css?v=' + new Date().getTime();
-
-  const scriptTag = document.querySelector('script[src="script.js"]');
-  scriptTag.src = 'script.js?v=' + new Date().getTime();
-}
 
 //fonction permettant l'appel de l'api météo
 async function callAPI() {
@@ -82,14 +65,17 @@ async function callAPI() {
     var access_key = "cd3636c96d801f29373faa8ed40b8e96";
     var query = city;
 
-    var url="http://api.weatherstack.com/current?access_key="+access_key+"&query="+query; //url de la requête api
+    //url de la requête api
+    var url="http://api.weatherstack.com/current?access_key="+access_key+"&query="+query; 
     console.log(url)
     
+    //récupération des données de l'api
     $.get(url, success).done(function() {
-        //alert( "second success" );
+        //alert( "success" );
       })
       .fail(function() {
-        alert( "L'appel de l'API n'a pas fonctionné." );
+        alert("Erreur lors de l'appel de l'API");
+        console.error("Erreur lors de l'appel de l'API");
       })
       .always(function() {
         //alert( "finished" );
